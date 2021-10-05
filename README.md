@@ -49,15 +49,18 @@ echo -n <SECRET_HTTP_KEY> > keyfile.key
 
 
 Gather the Bottoken from Botfather and write it to bottoken.key
+https://www.teleme.io/articles/create_your_own_telegram_bot?hl=en
 ```
 echo -n <BOT_TOKEN> > bottoken.key
 ```
 
 
 Get the chat_id from you chat with your bot, and write it to chatid.key
+https://sean-bradley.medium.com/get-telegram-chat-id-80b575520659
 ```
 echo -n <CHAT_ID> > chatid.key
 ```
+
 chown the complete repo (-R) to telegram-bridge:telegram-bridge
 ```
 chown -R telegram-bridge:telegram-bridge <path_to_repo>
