@@ -22,54 +22,55 @@ You can use curl directly, or you can use any other HTTP Post request, as long a
 
 **Installation**
 
+
 Install Python3 and python3-pip
-
+```
+apt-get install python3
 pip3 install telegram
+```
 
 
-
-create a group telegram-bridge
-
+create a group and a user telegram-bridge
+```
 groupadd -g 800 telegram-bridge
-
-
-
-create a user telegram-bridge
-
 useradd -u 800 -g 800 telegram-bridge
-
-
+```
 
 git clone this repo
-
-
-
-chown the complete repo (-R) to telegram-bridge:telegram-bridge
-
+```
+git clone https://github.com/GeneralGresi/telegram-http-bridge
+```
 
 
 Select a random key and write it to the keyfile
-
+```
 echo -n <SECRET_HTTP_KEY> > keyfile.key
-
+```
 
 
 Gather the Bottoken from Botfather and write it to bottoken.key
-
+```
 echo -n <BOT_TOKEN> > bottoken.key
-
+```
 
 
 Get the chat_id from you chat with your bot, and write it to chatid.key
-
+```
 echo -n <CHAT_ID> > chatid.key
-
-
+```
+chown the complete repo (-R) to telegram-bridge:telegram-bridge
+```
+chown -R telegram-bridge:telegram-bridge <path_to_repo>
+```
 
 copy the servicefile to /etc/systemd/system/telegram-http-bridge.service and change paths in accordance to your path
+```
+cp <path_to_repo>/telegram-http-bridge.service /etc/systemd/system/telegram-http-bridge.service
+```
 
+Reload services, enable and start the bridge
+```
 systemctl daemon-reload
-
 systemctl enable telegram-http-bridge
-
 systemctl start telegram-http-bridge
+```
