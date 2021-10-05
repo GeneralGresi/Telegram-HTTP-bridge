@@ -26,29 +26,45 @@ Install Python3 and python3-pip
 
 pip3 install telegram
 
+
+
 create a group telegram-bridge
 
 groupadd -g 800 telegram-bridge
+
+
 
 create a user telegram-bridge
 
 useradd -u 800 -g 800 telegram-bridge
 
+
+
 git clone this repo
 
+
+
 chown the complete repo (-R) to telegram-bridge:telegram-bridge
+
+
 
 Select a random key and write it to the keyfile
 
 echo -n <SECRET_HTTP_KEY> > keyfile.key
 
+
+
 Gather the Bottoken from Botfather and write it to bottoken.key
 
 echo -n <BOT_TOKEN> > bottoken.key
 
+
+
 Get the chat_id from you chat with your bot, and write it to chatid.key
 
 echo -n <CHAT_ID> > chatid.key
+
+
 
 copy the servicefile to /etc/systemd/system/telegram-http-bridge.service and change paths in accordance to your path
 
