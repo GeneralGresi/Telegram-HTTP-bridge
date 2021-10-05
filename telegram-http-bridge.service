@@ -1,0 +1,14 @@
+[Unit]
+Description=Python3 Telegram HTTP Bridge Service
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=telegram-bridge
+ExecStart=/usr/bin/env python3 /opt/telegram-http-bridge/telegram-http-bridge.py
+
+[Install]
+WantedBy=multi-user.target

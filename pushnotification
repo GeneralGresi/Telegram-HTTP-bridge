@@ -1,0 +1,39 @@
+#!/bin/sh
+title=$1
+msg=$2
+
+
+key=$(cat keyfile.key)
+
+title="$(hostname -s): $title"
+
+date=$(date "+%F %T")
+
+msg=$(printf "%s\n\nTimestamp: %s" "$msg" "$date")
+
+
+exitcode=1
+while [ $exitcode -ne 0 ];
+do
+        response=$(curl -sS --connect-timeout 10 --max-time 20 --data-urlencode 'title='"$title" \
+                                                                --data-urlencode 'message='"$msg" \
+                                                                --data-urlencode 'key='"$key" \
+                                                                        http://localhost:8000 2>&1)
+        exitcode=$?
+        proxyerror=502
+        case "$response" in
+                *$proxyerror*)
+                        exitcode=1
+                        logger -t "httppush" -p syslog.info "ID $msg_id - Proxy Error"
+                        echo "Proxy Error"
+                        ;;
+                *)
+                        logger -t "httppush" -p syslog.info "ID $msg_id - Reponse: $response"
+                        echo "Reponse: $response"
+                        ;;
+        esac
+        sleep 5
+done
+
+
+exit 0
